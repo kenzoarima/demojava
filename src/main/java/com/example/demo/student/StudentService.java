@@ -19,6 +19,15 @@ public class StudentService {
         return repository.findAll();
 	}
 
+    public Optional<Student> getStudent(Long studentId) {
+        // Optional<Student> studentOptional = repository.findStudentByEmail(studentEmail);
+        Optional<Student> studentOptional = repository.findById(studentId);
+        if (!studentOptional.isPresent()) {
+            throw new IllegalStateException("student not found");
+        }
+        return studentOptional;
+    }
+
     public void addNewStudent(Student student) {
         Optional<Student> studentOptional = repository.findStudentByEmail(student.getEmail());
         if (studentOptional.isPresent()) {
